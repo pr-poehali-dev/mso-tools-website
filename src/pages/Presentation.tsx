@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import AIAssistant from "@/components/AIAssistant";
 
 const STORAGE_KEY = "officekit_presentation";
 
@@ -38,6 +39,42 @@ const TEMPLATES: Record<string, Slide[]> = {
     { id: "1", title: "Отчёт за квартал", content: "Q1 2026 · Общие результаты", bg: "#1e293b", textColor: "#f1f5f9", layout: "title" },
     { id: "2", title: "Ключевые метрики", content: "• Выручка: 12M ₽ (+24%)\n• Клиенты: 1 240 (+18%)\n• NPS: 72", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
     { id: "3", title: "Выводы", content: "Отличный квартал!\nФокус на удержание.", bg: "#fef3c7", textColor: "#78350f", layout: "content" },
+  ],
+  product: [
+    { id: "1", title: "Запуск нового продукта", content: "Презентация для команды\nВесна 2026", bg: "linear-gradient(135deg,#06b6d4,#3b82f6)", textColor: "#ffffff", layout: "title" },
+    { id: "2", title: "Что мы запускаем", content: "• Новая версия продукта\n• Ключевые улучшения\n• Целевая аудитория", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "3", title: "Фичи и преимущества", content: "1. Фича 1 — описание\n2. Фича 2 — описание\n3. Фича 3 — описание", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "4", title: "План запуска", content: "• Неделя 1: подготовка\n• Неделя 2: soft launch\n• Неделя 3: публичный запуск\n• Неделя 4: маркетинг", bg: "#dbeafe", textColor: "#1e3a8a", layout: "content" },
+    { id: "5", title: "Вопросы?", content: "Обсудим!", bg: "linear-gradient(135deg,#06b6d4,#3b82f6)", textColor: "#ffffff", layout: "title" },
+  ],
+  training: [
+    { id: "1", title: "Название курса", content: "Обучающая программа\nДля начинающих", bg: "linear-gradient(135deg,#10b981,#06b6d4)", textColor: "#ffffff", layout: "title" },
+    { id: "2", title: "Чему научитесь", content: "• Навык 1\n• Навык 2\n• Навык 3\n• Практика на реальных задачах", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "3", title: "Модуль 1: Основы", content: "Теория и базовые понятия", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "4", title: "Модуль 2: Практика", content: "Применение на реальных кейсах", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "5", title: "Домашнее задание", content: "1. Задание 1\n2. Задание 2\n\nСрок: до следующей встречи", bg: "#fef3c7", textColor: "#78350f", layout: "content" },
+  ],
+  sales: [
+    { id: "1", title: "Имя клиента", content: "Коммерческое предложение\nот Browser Office", bg: "#1a1a2e", textColor: "#ffffff", layout: "title" },
+    { id: "2", title: "Ваша задача", content: "• Что болит\n• Почему важно решить\n• Что пробовали раньше", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "3", title: "Наше решение", content: "Подход, который работает:\n✓ Быстро\n✓ Понятно\n✓ С гарантией результата", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "4", title: "Кейсы", content: "Клиент А: +40% выручки\nКлиент Б: -30% затрат\nКлиент В: х2 заявок", bg: "#dbeafe", textColor: "#1e3a8a", layout: "content" },
+    { id: "5", title: "Цена и сроки", content: "Базовый: 50 000 ₽\nСтандарт: 120 000 ₽\nПремиум: 300 000 ₽", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "6", title: "Начнём?", content: "Готов обсудить детали\n+7 (000) 000-00-00", bg: "#1a1a2e", textColor: "#ffffff", layout: "title" },
+  ],
+  roadmap: [
+    { id: "1", title: "Product Roadmap", content: "План развития на 2026 год", bg: "linear-gradient(135deg,#f472b6,#b7472a)", textColor: "#ffffff", layout: "title" },
+    { id: "2", title: "Q1: Фундамент", content: "• Переработка UX\n• Новая архитектура\n• Запуск аналитики", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "3", title: "Q2: Рост", content: "• Новые фичи\n• Мобильное приложение\n• Интеграции", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "4", title: "Q3: Масштабирование", content: "• Выход на новые рынки\n• B2B-портал\n• API для партнёров", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "5", title: "Q4: AI и будущее", content: "• ИИ-ассистент\n• Автоматизация\n• Персонализация", bg: "linear-gradient(135deg,#f472b6,#b7472a)", textColor: "#ffffff", layout: "content" },
+  ],
+  webinar: [
+    { id: "1", title: "Название вебинара", content: "Спикер: Имя Фамилия\nДата: __.__.2026", bg: "linear-gradient(135deg,#667eea,#f472b6)", textColor: "#ffffff", layout: "title" },
+    { id: "2", title: "О чём поговорим", content: "1. Тема 1\n2. Тема 2\n3. Тема 3\n4. Вопросы-ответы", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "3", title: "Главная мысль", content: "Ключевой вывод, который важно запомнить", bg: "#fef3c7", textColor: "#78350f", layout: "title" },
+    { id: "4", title: "Практические советы", content: "• Совет 1\n• Совет 2\n• Совет 3", bg: "#ffffff", textColor: "#1a1a1a", layout: "content" },
+    { id: "5", title: "Спасибо за внимание", content: "Вопросы?\ntelegram @speaker", bg: "linear-gradient(135deg,#667eea,#f472b6)", textColor: "#ffffff", layout: "title" },
   ],
 };
 
@@ -246,6 +283,7 @@ const Presentation = () => {
           </div>
         </div>
       </div>
+      <AIAssistant onInsert={(text) => updateSlide({ content: text })} />
     </div>
   );
 };

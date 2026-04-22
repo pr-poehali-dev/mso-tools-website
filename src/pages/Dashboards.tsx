@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import AIAssistant from "@/components/AIAssistant";
 
 const STORAGE_KEY = "officekit_dashboard";
 
@@ -62,6 +63,83 @@ const TEMPLATES: Record<string, { title: string; widgets: Widget[] }> = {
       { id: "4", type: "bar", title: "По сотрудникам", color: "#8b5cf6", data: [
         { name: "Иванов", value: 24, value2: 18 }, { name: "Петров", value: 19, value2: 15 },
         { name: "Сидоров", value: 22, value2: 20 }, { name: "Смирнов", value: 16, value2: 12 },
+      ]},
+    ],
+  },
+  marketing: {
+    title: "Маркетинг",
+    widgets: [
+      { id: "1", type: "stat", title: "CTR", value: "4.8%", change: "+0.6%", color: "#8b5cf6" },
+      { id: "2", type: "stat", title: "CPC", value: "28 ₽", change: "-12%", color: "#06b6d4" },
+      { id: "3", type: "stat", title: "ROI", value: "312%", change: "+45%", color: "#4ade80" },
+      { id: "4", type: "stat", title: "Лиды", value: "486", change: "+22%", color: "#f472b6" },
+      { id: "5", type: "area", title: "Конверсии по дням", color: "#8b5cf6", data: Array.from({length:14}, (_,i) => ({ name: `${i+1}`, value: 20 + Math.round(Math.random()*80) })) },
+      { id: "6", type: "pie", title: "Бюджет по каналам", color: "#06b6d4", data: [
+        { name: "Яндекс Директ", value: 45 }, { name: "ВКонтакте", value: 25 },
+        { name: "Telegram Ads", value: 20 }, { name: "SEO", value: 10 },
+      ]},
+    ],
+  },
+  finance: {
+    title: "Финансы",
+    widgets: [
+      { id: "1", type: "stat", title: "Баланс", value: "2.4M ₽", change: "+8%", color: "#4ade80" },
+      { id: "2", type: "stat", title: "Расходы", value: "890K ₽", change: "+3%", color: "#f87171" },
+      { id: "3", type: "stat", title: "Прибыль", value: "1.5M ₽", change: "+12%", color: "#8b5cf6" },
+      { id: "4", type: "stat", title: "Налоги", value: "210K ₽", change: "—", color: "#fbbf24" },
+      { id: "5", type: "bar", title: "Доходы vs расходы по месяцам", color: "#4ade80", data: [
+        { name: "Янв", value: 800, value2: 400 }, { name: "Фев", value: 920, value2: 450 },
+        { name: "Мар", value: 1100, value2: 520 }, { name: "Апр", value: 1240, value2: 560 },
+      ]},
+      { id: "6", type: "pie", title: "Структура расходов", color: "#f472b6", data: [
+        { name: "Зарплаты", value: 55 }, { name: "Аренда", value: 15 },
+        { name: "Реклама", value: 20 }, { name: "Прочее", value: 10 },
+      ]},
+    ],
+  },
+  ecommerce: {
+    title: "Интернет-магазин",
+    widgets: [
+      { id: "1", type: "stat", title: "Продажи", value: "3 420", change: "+18%", color: "#8b5cf6" },
+      { id: "2", type: "stat", title: "AOV", value: "4 850 ₽", change: "+6%", color: "#06b6d4" },
+      { id: "3", type: "stat", title: "Возвраты", value: "2.1%", change: "-0.3%", color: "#4ade80" },
+      { id: "4", type: "stat", title: "Корзина →", value: "68%", change: "+4%", color: "#fbbf24" },
+      { id: "5", type: "line", title: "Заказы за неделю", color: "#8b5cf6", data: [
+        { name: "Пн", value: 420 }, { name: "Вт", value: 380 }, { name: "Ср", value: 510 },
+        { name: "Чт", value: 490 }, { name: "Пт", value: 620 }, { name: "Сб", value: 780 }, { name: "Вс", value: 720 },
+      ]},
+      { id: "6", type: "bar", title: "Топ товаров", color: "#f472b6", data: [
+        { name: "Товар A", value: 850 }, { name: "Товар B", value: 620 },
+        { name: "Товар C", value: 480 }, { name: "Товар D", value: 310 },
+      ]},
+    ],
+  },
+  hr: {
+    title: "HR и команда",
+    widgets: [
+      { id: "1", type: "stat", title: "Сотрудников", value: "124", change: "+6", color: "#8b5cf6" },
+      { id: "2", type: "stat", title: "Вакансии", value: "8", change: "—", color: "#06b6d4" },
+      { id: "3", type: "stat", title: "eNPS", value: "64", change: "+5", color: "#4ade80" },
+      { id: "4", type: "stat", title: "Текучка", value: "4.2%", change: "-1%", color: "#fbbf24" },
+      { id: "5", type: "pie", title: "По отделам", color: "#8b5cf6", data: [
+        { name: "Разработка", value: 42 }, { name: "Продажи", value: 28 },
+        { name: "Маркетинг", value: 18 }, { name: "HR", value: 8 }, { name: "Финансы", value: 12 },
+      ]},
+      { id: "6", type: "bar", title: "Найм по месяцам", color: "#06b6d4", data: [
+        { name: "Янв", value: 4 }, { name: "Фев", value: 6 }, { name: "Мар", value: 8 }, { name: "Апр", value: 5 },
+      ]},
+    ],
+  },
+  social: {
+    title: "Соц. сети",
+    widgets: [
+      { id: "1", type: "stat", title: "Подписчики", value: "48.2K", change: "+1.2K", color: "#8b5cf6" },
+      { id: "2", type: "stat", title: "Охват", value: "287K", change: "+32%", color: "#06b6d4" },
+      { id: "3", type: "stat", title: "ER", value: "5.4%", change: "+0.8%", color: "#4ade80" },
+      { id: "4", type: "area", title: "Рост аудитории", color: "#f472b6", data: Array.from({length:12}, (_,i) => ({ name: `М${i+1}`, value: 30 + i * 4 + Math.round(Math.random()*10) })) },
+      { id: "5", type: "pie", title: "По платформам", color: "#8b5cf6", data: [
+        { name: "VK", value: 42 }, { name: "Telegram", value: 28 },
+        { name: "YouTube", value: 18 }, { name: "Instagram", value: 12 },
       ]},
     ],
   },
@@ -224,12 +302,41 @@ const Dashboards = () => {
           {charts.map(w => (
             <div key={w.id} className="relative group bg-slate-900 border border-white/10 rounded-2xl p-5">
               <button onClick={() => removeWidget(w.id)} className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 text-white/40 hover:text-red-400"><Icon name="X" size={14} /></button>
-              <h3 className="font-semibold mb-4">{w.title}</h3>
+              <input value={w.title}
+                onChange={e => { setWidgets(widgets.map(x => x.id === w.id ? { ...x, title: e.target.value } : x)); setSaved(false); }}
+                className="bg-transparent font-semibold mb-4 border-b border-transparent hover:border-white/20 focus:border-white/40 focus:outline-none w-full" />
               {renderChart(w)}
+              {w.data && (
+                <div className="mt-4 pt-3 border-t border-white/10 space-y-1.5">
+                  <div className="text-xs text-white/40 mb-1">Категории (кликните чтобы изменить):</div>
+                  {w.data.map((d, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm">
+                      <div className="w-2 h-2 rounded-full shrink-0" style={{ background: COLORS[i % COLORS.length] }} />
+                      <input value={d.name}
+                        onChange={e => {
+                          const newData = [...(w.data || [])];
+                          newData[i] = { ...newData[i], name: e.target.value };
+                          setWidgets(widgets.map(x => x.id === w.id ? { ...x, data: newData } : x));
+                          setSaved(false);
+                        }}
+                        className="flex-1 bg-transparent border-b border-transparent hover:border-white/20 focus:border-white/40 focus:outline-none text-white/80" />
+                      <input type="number" value={d.value}
+                        onChange={e => {
+                          const newData = [...(w.data || [])];
+                          newData[i] = { ...newData[i], value: parseFloat(e.target.value) || 0 };
+                          setWidgets(widgets.map(x => x.id === w.id ? { ...x, data: newData } : x));
+                          setSaved(false);
+                        }}
+                        className="w-20 bg-transparent border-b border-transparent hover:border-white/20 focus:border-white/40 focus:outline-none text-right text-white/80" />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
       </div>
+      <AIAssistant />
     </div>
   );
 };

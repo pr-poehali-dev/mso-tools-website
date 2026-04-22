@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import AIAssistant from "@/components/AIAssistant";
 
 const STORAGE_KEY = "officekit_forms";
 
@@ -48,6 +49,82 @@ const TEMPLATES: Record<string, FormDoc> = {
       { id: "2", type: "checkbox", label: "Разработка", options: ["Дизайн готов", "Код написан", "Тесты пройдены"] },
       { id: "3", type: "checkbox", label: "Запуск", options: ["Маркетинг готов", "Сервера развёрнуты", "Документация"] },
       { id: "4", type: "date", label: "Дата запуска", required: true },
+    ],
+  },
+  order: {
+    title: "Форма заказа",
+    description: "Заполните данные для оформления заказа",
+    fields: [
+      { id: "1", type: "text", label: "ФИО получателя", required: true },
+      { id: "2", type: "text", label: "Телефон", required: true, placeholder: "+7 ___ ___-__-__" },
+      { id: "3", type: "email", label: "Email", required: true },
+      { id: "4", type: "text", label: "Адрес доставки", required: true },
+      { id: "5", type: "select", label: "Способ доставки", options: ["Курьер", "Самовывоз", "Почта России", "СДЭК"] },
+      { id: "6", type: "radio", label: "Способ оплаты", options: ["Карта онлайн", "Наличные при получении", "Счёт для юрлиц"] },
+      { id: "7", type: "textarea", label: "Комментарий" },
+    ],
+  },
+  booking: {
+    title: "Запись на услугу",
+    description: "Выберите удобное время",
+    fields: [
+      { id: "1", type: "text", label: "Ваше имя", required: true },
+      { id: "2", type: "text", label: "Телефон", required: true },
+      { id: "3", type: "select", label: "Услуга", required: true, options: ["Консультация", "Диагностика", "Процедура", "Другое"] },
+      { id: "4", type: "date", label: "Желаемая дата", required: true },
+      { id: "5", type: "radio", label: "Время", options: ["Утро (9-12)", "День (12-17)", "Вечер (17-20)"] },
+      { id: "6", type: "textarea", label: "Дополнительные пожелания" },
+    ],
+  },
+  event: {
+    title: "Регистрация на мероприятие",
+    description: "Заполните анкету участника",
+    fields: [
+      { id: "1", type: "text", label: "ФИО", required: true },
+      { id: "2", type: "email", label: "Email", required: true },
+      { id: "3", type: "text", label: "Компания" },
+      { id: "4", type: "text", label: "Должность" },
+      { id: "5", type: "radio", label: "Формат участия", options: ["Очно", "Онлайн"] },
+      { id: "6", type: "checkbox", label: "Интересующие темы", options: ["Маркетинг", "Продажи", "HR", "Технологии", "Финансы"] },
+      { id: "7", type: "textarea", label: "Вопрос спикерам" },
+    ],
+  },
+  vacancy: {
+    title: "Отклик на вакансию",
+    description: "Расскажите о себе",
+    fields: [
+      { id: "1", type: "text", label: "ФИО", required: true },
+      { id: "2", type: "text", label: "Телефон", required: true },
+      { id: "3", type: "email", label: "Email", required: true },
+      { id: "4", type: "select", label: "Желаемая вакансия", required: true, options: ["Менеджер продаж", "Разработчик", "Маркетолог", "Бухгалтер", "Другая"] },
+      { id: "5", type: "number", label: "Опыт работы (лет)" },
+      { id: "6", type: "number", label: "Ожидаемая зарплата, ₽" },
+      { id: "7", type: "textarea", label: "О себе", placeholder: "Ключевые навыки и достижения..." },
+      { id: "8", type: "text", label: "Ссылка на резюме (hh.ru)" },
+    ],
+  },
+  nps: {
+    title: "Опрос NPS",
+    description: "Насколько вы готовы рекомендовать нас?",
+    fields: [
+      { id: "1", type: "radio", label: "Оцените от 0 до 10", required: true, options: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] },
+      { id: "2", type: "textarea", label: "Что нам улучшить?" },
+      { id: "3", type: "email", label: "Email (опционально)" },
+    ],
+  },
+  brief: {
+    title: "Бриф на разработку сайта",
+    description: "Помогите нам лучше понять задачу",
+    fields: [
+      { id: "1", type: "text", label: "Название компании", required: true },
+      { id: "2", type: "text", label: "Контактное лицо" },
+      { id: "3", type: "email", label: "Email", required: true },
+      { id: "4", type: "text", label: "Телефон" },
+      { id: "5", type: "textarea", label: "О компании (чем занимаетесь)", required: true },
+      { id: "6", type: "checkbox", label: "Тип сайта", options: ["Лендинг", "Корпоративный", "Интернет-магазин", "Каталог", "SaaS"] },
+      { id: "7", type: "text", label: "Бюджет, ₽" },
+      { id: "8", type: "date", label: "Желаемая дата запуска" },
+      { id: "9", type: "textarea", label: "Сайты, которые нравятся (примеры)" },
     ],
   },
 };
@@ -257,6 +334,7 @@ const Forms = () => {
           )}
         </div>
       </div>
+      <AIAssistant />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import AIAssistant from "@/components/AIAssistant";
 
 const STORAGE_KEY = "officekit_planner";
 
@@ -52,6 +53,63 @@ const TEMPLATES: Record<string, { title: string; tasks: Task[] }> = {
       { id: "3", title: "Интеграция с CRM", status: "todo", priority: "med", date: "2026-05-30" },
       { id: "4", title: "Новые шаблоны", status: "todo", priority: "low", date: "2026-06-15" },
       { id: "5", title: "B2B-портал", status: "todo", priority: "high", date: "2026-06-30" },
+    ],
+  },
+  marketing: {
+    title: "Маркетинг-план",
+    tasks: [
+      { id: "1", title: "Стратегия на квартал", desc: "Определить KPI и каналы", status: "done", priority: "high" },
+      { id: "2", title: "Запустить Я.Директ", desc: "Настройка и A/B тесты", status: "progress", priority: "high", date: "2026-04-25" },
+      { id: "3", title: "Контент-план для блога", status: "progress", priority: "med" },
+      { id: "4", title: "Email-рассылка", desc: "10 писем цикл", status: "todo", priority: "med", date: "2026-05-01" },
+      { id: "5", title: "SEO-аудит", status: "todo", priority: "low" },
+      { id: "6", title: "Партнёрская программа", status: "todo", priority: "high", date: "2026-05-15" },
+    ],
+  },
+  moving: {
+    title: "Переезд в офис",
+    tasks: [
+      { id: "1", title: "Выбрать помещение", status: "done", priority: "high" },
+      { id: "2", title: "Подписать договор аренды", status: "progress", priority: "high", date: "2026-04-25" },
+      { id: "3", title: "Заказать мебель", status: "todo", priority: "high", date: "2026-04-30" },
+      { id: "4", title: "Перевезти технику", status: "todo", priority: "med", date: "2026-05-05" },
+      { id: "5", title: "Подключить интернет", status: "todo", priority: "high", date: "2026-05-05" },
+      { id: "6", title: "Уведомить сотрудников", status: "todo", priority: "med" },
+    ],
+  },
+  travel: {
+    title: "Планирование отпуска",
+    tasks: [
+      { id: "1", title: "Купить билеты", status: "done", priority: "high" },
+      { id: "2", title: "Забронировать отель", status: "progress", priority: "high" },
+      { id: "3", title: "Оформить страховку", status: "todo", priority: "high" },
+      { id: "4", title: "Составить маршрут", status: "todo", priority: "med" },
+      { id: "5", title: "Собрать чемодан", status: "todo", priority: "low" },
+      { id: "6", title: "Поставить отпуск на работе", status: "todo", priority: "high" },
+    ],
+  },
+  wedding: {
+    title: "Организация мероприятия",
+    tasks: [
+      { id: "1", title: "Выбрать дату и место", status: "done", priority: "high" },
+      { id: "2", title: "Составить список гостей", status: "progress", priority: "high" },
+      { id: "3", title: "Разослать приглашения", status: "todo", priority: "high" },
+      { id: "4", title: "Заказать кейтеринг", status: "todo", priority: "high" },
+      { id: "5", title: "Найти фотографа", status: "todo", priority: "med" },
+      { id: "6", title: "Подготовить программу", status: "todo", priority: "med" },
+      { id: "7", title: "Арендовать оборудование", status: "todo", priority: "low" },
+    ],
+  },
+  onboarding: {
+    title: "Онбординг сотрудника",
+    tasks: [
+      { id: "1", title: "Подготовить рабочее место", status: "done", priority: "high" },
+      { id: "2", title: "Оформить документы", status: "progress", priority: "high" },
+      { id: "3", title: "Создать учётные записи", status: "progress", priority: "high" },
+      { id: "4", title: "Провести welcome-встречу", status: "todo", priority: "med" },
+      { id: "5", title: "Познакомить с командой", status: "todo", priority: "med" },
+      { id: "6", title: "Задачи на первую неделю", status: "todo", priority: "high" },
+      { id: "7", title: "Фидбек через 1 месяц", status: "todo", priority: "low" },
     ],
   },
 };
@@ -282,6 +340,7 @@ const Planner = () => {
           </div>
         </div>
       )}
+      <AIAssistant />
     </div>
   );
 };
