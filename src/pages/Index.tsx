@@ -416,9 +416,9 @@ const Index = () => {
 
               <div className="space-y-4">
                 {[
-                  { icon: "Mail", title: "Email", value: "hello@officekit.ru", color: "purple" },
+                  { icon: "Mail", title: "Email", value: "andreevvadim07071986@gmail.com", color: "purple" },
                   { icon: "MessageCircle", title: "Telegram", value: "@officekit_support", color: "cyan" },
-                  { icon: "Phone", title: "Телефон", value: "+7 (800) 000-00-00", color: "green" },
+                  { icon: "Phone", title: "Телефон", value: "+7 (991) 303-92-63", color: "green" },
                   { icon: "Clock", title: "Режим работы", value: "Пн–Пт, 9:00–18:00 МСК", color: "pink" },
                 ].map((item) => {
                   const c = colorMap[item.color] ?? colorMap.purple;
