@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 
 const NAV_ITEMS = [
@@ -100,8 +101,13 @@ const colorMap: Record<string, { border: string; bg: string; text: string; tag: 
 };
 
 const Index = () => {
+  const navigate = useNavigate();
   const [active, setActive] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleToolClick = (id: number) => {
+    if (id === 1) navigate("/tools/documents");
+  };
 
   const scrollTo = (id: string) => {
     setActive(id);
@@ -274,6 +280,7 @@ const Index = () => {
                 return (
                   <div
                     key={tool.id}
+                    onClick={() => handleToolClick(tool.id)}
                     className={`group relative p-6 rounded-2xl border bg-card card-glow cursor-pointer ${c.border}`}
                   >
                     <div className={`w-12 h-12 rounded-xl ${c.bg} flex items-center justify-center mb-5`}>
