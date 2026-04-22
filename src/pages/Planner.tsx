@@ -129,7 +129,7 @@ const Planner = () => {
             className="bg-transparent border-b border-transparent hover:border-white/30 focus:border-white focus:outline-none px-2 py-1 text-sm font-medium min-w-[200px]" />
           <span className="text-xs text-white/80 ml-2">{saved ? "✓ Сохранено" : "● Не сохранено"}</span>
           <div className="flex-1" />
-          <span className="text-xs text-white/80">OfficeKit Planner</span>
+          <span className="text-xs text-white/80">Browser Office Planner</span>
         </div>
         <div className="flex items-center gap-1 px-4 py-1 border-t border-white/10 text-sm">
           <button onClick={() => setShowTpl(!showTpl)} className="px-3 py-1 hover:bg-white/10 rounded">Шаблоны</button>

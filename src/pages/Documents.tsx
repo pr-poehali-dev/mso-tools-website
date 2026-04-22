@@ -162,7 +162,7 @@ const Documents = () => {
             {saved ? "✓ Сохранено" : "● Не сохранено"}
           </span>
           <div className="flex-1" />
-          <span className="text-xs text-white/70">OfficeKit Word</span>
+          <span className="text-xs text-white/70">Browser Office Word</span>
         </div>
 
         {/* Menu Bar */}

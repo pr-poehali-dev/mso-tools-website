@@ -147,7 +147,7 @@ const Index = () => {
               <Icon name="Layers" size={16} className="text-white" />
             </div>
             <span className="font-montserrat font-bold text-lg tracking-tight text-white">
-              Office<span className="text-gradient-primary">Kit</span>
+              Browser<span className="text-gradient-primary"> Office</span>
             </span>
           </button>
 
