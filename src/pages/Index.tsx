@@ -105,8 +105,18 @@ const Index = () => {
   const [active, setActive] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const TOOL_ROUTES: Record<number, string> = {
+    1: "/tools/documents",
+    2: "/tools/spreadsheet",
+    3: "/tools/presentation",
+    4: "/tools/forms",
+    5: "/tools/dashboards",
+    6: "/tools/planner",
+  };
+
   const handleToolClick = (id: number) => {
-    if (id === 1) navigate("/tools/documents");
+    const route = TOOL_ROUTES[id];
+    if (route) navigate(route);
   };
 
   const scrollTo = (id: string) => {
